@@ -2,7 +2,6 @@
 " => vim-plug
 """""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
-Plug 'itchyny/lightline.vim'
 " tag自动生成插件
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
@@ -43,9 +42,15 @@ Plug 'justinmk/vim-dirvish'
 " 函数显示参数
 Plug 'Shougo/echodoc.vim'
 " 状态栏
-Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+"Plug 'mengelbrecht/lightline-bufferline'
 " 函数跳转
 Plug 'wesleyche/SrcExpl'
+" vim启动优化
+Plug 'tweekmonster/startuptime.vim'
+Plug 'dstein64/vim-startuptime'
 call plug#end()
 """""""""""""""""""""""""""""""""
 " => gutentags
