@@ -1,0 +1,11 @@
+#!/bin/bash
+#########################################################
+# FileName   :rmtag.sh
+# Author     :Quanbo Liu
+# Email      :quanbo.liu@enflame-tech.com
+# Time       :2021-02-22 00:02:04
+# Version    :V1.0
+# Description:
+#########################################################
+cd $1
+rm tags cscope.in.out cscope.out cscope.po.out

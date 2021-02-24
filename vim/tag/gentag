@@ -1,0 +1,16 @@
+#!/bin/bash
+#########################################################
+# FileName   :gentag.sh
+# Author     :Quanbo Liu
+# Email      :quanbo.liu@enflame-tech.com
+# Time       :2021-02-21 23:33:44
+# Version    :V1.0
+# Description:
+#########################################################
+TARGET='/tmp/cscope.files'
+find $1 -name "*.h" -o -name "*.cpp" -o -name "*.cc" > ${TARGET}
+mycwd=`pwd`
+cd $1
+ctags -R *
+cscope -bq -i ${TARGET}
+cd ${mycwd}
