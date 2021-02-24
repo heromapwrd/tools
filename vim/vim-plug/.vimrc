@@ -72,9 +72,9 @@ let g:gutentags_modules = []
 if executable('ctags')
 	let g:gutentags_modules += ['ctags']
 endif
-if executable('gtags-cscope') && executable('gtags')
-	let g:gutentags_modules += ['gtags_cscope']
-endif
+"if executable('gtags-cscope') && executable('gtags')
+"	let g:gutentags_modules += ['gtags_cscope']
+"endif
 " 配置 ctags 的参数 "
 " ctags -R --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+liaS --extra=+q
 " ctags --list-kinds=c++
@@ -312,7 +312,7 @@ nmap <A-D> :cs find d <C-R>=expand("<cword>")<CR><CR>
 " gtags
 """""""""""""""""""""""""""""""""
 set cscopetag " 使用 cscope 作为 tags 命令
-set cscopeprg='gtags-cscope' " 使用 gtags-cscope 代替 cscope
+"set cscopeprg='gtags-cscope' " 使用 gtags-cscope 代替 cscope
 let g:Lf_GtagsAutoGenerate = 1
 let g:Lf_Gtagslabel = 'native-pygments'
 let g:Lf_Gtagsconf = '/usr/local/share/gtags/gtags.conf'
