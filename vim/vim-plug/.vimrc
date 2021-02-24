@@ -32,6 +32,7 @@ Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 "
 " 符号列表
 Plug 'vim-scripts/taglist.vim', {'on': 'TlistToggle'}
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 " 括号/引号匹配
 Plug 'Raimondi/delimitMate'
 " 注释
@@ -251,6 +252,12 @@ let Tlist_GainFocus_On_ToggleOpen = 1 "Taglist窗口打开时，立刻切换为�
 "let Tlist_Auto_Open=1                "打开vim时自动打开taglist
 "let Tlist_Process_File_Always=1      "taglist始终解析文件中的tag，不管taglist窗口有没有打开
 noremap <silent> <F4> :TlistToggle<cr>
+
+"""""""""""""""""""""""""""""""""
+" tagbar
+"""""""""""""""""""""""""""""""""
+let g:tagbar_width = 30
+nmap <F12> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""
 " => echodoc
