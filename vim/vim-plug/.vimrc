@@ -32,7 +32,7 @@ Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 "
 " 符号列表
 Plug 'vim-scripts/taglist.vim', {'on': 'TlistToggle'}
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+"Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 " 括号/引号匹配
 Plug 'Raimondi/delimitMate'
 " 注释
@@ -185,11 +185,20 @@ augroup END
 """""""""""""""""""""""""""""""""
 "let g:Lf_ShortcutF = '<C-j>'
 "let g:Lf_ShortcutB = 'b'
-noremap <C-j> :Leaderf file<cr>
-noremap <C-k> :Leaderf mru<cr>
-noremap <C-l> :Leaderf function<cr>
-noremap <F5> :Leaderf gtags<cr>
-noremap <F6> :Leaderf buffer<cr>
+"noremap <C-j> :Leaderf file<cr>
+"noremap <C-k> :Leaderf mru<cr>
+"noremap <C-l> :Leaderf function<cr>
+"noremap <F5> :Leaderf gtags<cr>
+"noremap  :Leaderf buffer<cr>
+cnoremap lfo<cr>  Leaderf file<cr>
+cnoremap lfm<cr>  Leaderf mru<cr>
+cnoremap lff<cr>  Leaderf function<cr>
+cnoremap lfgt<cr> Leaderf gtags<cr>
+cnoremap lft<cr>  Leaderf tag<cr>
+cnoremap lfb<cr>  Leaderf buffer<cr>
+cnoremap lfbt<cr> Leaderf bufTag<cr>
+cnoremap lfw<cr>  Leaderf window<cr>
+cnoremap lfs<cr>  Leaderf self<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 
 let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
@@ -256,8 +265,8 @@ noremap <silent> <F4> :TlistToggle<cr>
 """""""""""""""""""""""""""""""""
 " tagbar
 """""""""""""""""""""""""""""""""
-let g:tagbar_width = 30
-nmap <F12> :TagbarToggle<CR>
+"let g:tagbar_width = 30
+"nmap <F12> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""
 " => echodoc
