@@ -190,15 +190,22 @@ augroup END
 "noremap <C-l> :Leaderf function<cr>
 "noremap <F5> :Leaderf gtags<cr>
 "noremap  :Leaderf buffer<cr>
-cnoremap lfo<cr>  Leaderf file<cr>
-cnoremap lfm<cr>  Leaderf mru<cr>
-cnoremap lff<cr>  Leaderf function<cr>
-cnoremap lfgt<cr> Leaderf gtags<cr>
-cnoremap lft<cr>  Leaderf tag<cr>
-cnoremap lfb<cr>  Leaderf buffer<cr>
-cnoremap lfbt<cr> Leaderf bufTag<cr>
-cnoremap lfw<cr>  Leaderf window<cr>
-cnoremap lfs<cr>  Leaderf self<cr>
+"cnoremap lfo<cr>  Leaderf file<cr>
+"cnoremap lfm<cr>  Leaderf mru<cr>
+"cnoremap lff<cr>  Leaderf function<cr>
+"cnoremap lfgt<cr> Leaderf gtags<cr>
+"cnoremap lft<cr>  Leaderf tag<cr>
+"cnoremap lfb<cr>  Leaderf buffer<cr>
+"cnoremap lfbt<cr> Leaderf bufTag<cr>
+"cnoremap lfw<cr>  Leaderf window<cr>
+"cnoremap lfs<cr>  Leaderf self<cr>
+noremap <leader>m  :Leaderf mru<cr>
+noremap <leader>o  :Leaderf function<cr>
+noremap <leader>tg :Leaderf gtags<cr>
+noremap <leader>t  :Leaderf tag<cr>
+noremap <leader>tb :Leaderf bufTag<cr>
+noremap <leader>w  :Leaderf window<cr>
+noremap <leader>s  :Leaderf self<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 
 let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
