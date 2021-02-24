@@ -72,9 +72,9 @@ let g:gutentags_modules = []
 if executable('ctags')
 	let g:gutentags_modules += ['ctags']
 endif
-"if executable('gtags-cscope') && executable('gtags')
-"	let g:gutentags_modules += ['gtags_cscope']
-"endif
+if executable('gtags-cscope') && executable('gtags')
+	let g:gutentags_modules += ['gtags_cscope']
+endif
 " 配置 ctags 的参数 "
 " ctags -R --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+liaS --extra=+q
 " ctags --list-kinds=c++
@@ -185,20 +185,6 @@ augroup END
 """""""""""""""""""""""""""""""""
 "let g:Lf_ShortcutF = '<C-j>'
 "let g:Lf_ShortcutB = 'b'
-"noremap <C-j> :Leaderf file<cr>
-"noremap <C-k> :Leaderf mru<cr>
-"noremap <C-l> :Leaderf function<cr>
-"noremap <F5> :Leaderf gtags<cr>
-"noremap  :Leaderf buffer<cr>
-"cnoremap lfo<cr>  Leaderf file<cr>
-"cnoremap lfm<cr>  Leaderf mru<cr>
-"cnoremap lff<cr>  Leaderf function<cr>
-"cnoremap lfgt<cr> Leaderf gtags<cr>
-"cnoremap lft<cr>  Leaderf tag<cr>
-"cnoremap lfb<cr>  Leaderf buffer<cr>
-"cnoremap lfbt<cr> Leaderf bufTag<cr>
-"cnoremap lfw<cr>  Leaderf window<cr>
-"cnoremap lfs<cr>  Leaderf self<cr>
 noremap <leader>m  :Leaderf mru<cr>
 noremap <leader>o  :Leaderf function<cr>
 noremap <leader>tg :Leaderf gtags<cr>
@@ -316,28 +302,49 @@ let g:SrcExpl_isUpdateTags = 0
 """""""""""""""""""""""""""""""""
 " cscope
 """""""""""""""""""""""""""""""""
-nmap <A-S> :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <A-G> :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <A-C> :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <A-T> :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <A-E> :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <A-F> :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <A-I> :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <A-D> :cs find d <C-R>=expand("<cword>")<CR><CR>
+nmap S :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap G :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap C :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap T :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap E :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap F :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap I :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap D :cs find d <C-R>=expand("<cword>")<CR><CR>
+set cscopequickfix=s-,c-,d-,i-,t-,e-
+
+if has("cscope")
+    set csprg=/usr/bin/cscope
+    set csto=1
+    set cst
+    set csverb
+    set cspc=3
+    "add any database in current dir
+    if filereadable("cscope.out")
+        cs add cscope.out
+    "else search cscope.out elsewhere
+    else
+       let cscope_file=findfile("cscope.out", ".;")
+       let cscope_pre=matchstr(cscope_file, ".*/")
+       "echo cscope_file
+       if !empty(cscope_file) && filereadable(cscope_file)
+          exe "cs add" cscope_file cscope_pre
+       endif
+     endif
+endif
 
 """""""""""""""""""""""""""""""""
 " gtags
 """""""""""""""""""""""""""""""""
 set cscopetag " 使用 cscope 作为 tags 命令
-"set cscopeprg='gtags-cscope' " 使用 gtags-cscope 代替 cscope
+set cscopeprg='gtags-cscope' " 使用 gtags-cscope 代替 cscope
 let g:Lf_GtagsAutoGenerate = 1
 let g:Lf_Gtagslabel = 'native-pygments'
 let g:Lf_Gtagsconf = '/usr/local/share/gtags/gtags.conf'
-noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
-noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+noremap <leader>gr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>gd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>go :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+noremap <leader>gn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <leader>gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 
 """""""""""""""""""""""""""""""""
 " => 全局配置

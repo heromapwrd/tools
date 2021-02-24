@@ -7,5 +7,4 @@
 # Version    :V1.0
 # Description:
 #########################################################
-cd $1
-rm tags cscope.in.out cscope.out cscope.po.out
+rm .tags cscope.in.out cscope.out cscope.po.out

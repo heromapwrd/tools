@@ -8,9 +8,8 @@
 # Description:
 #########################################################
 TARGET='/tmp/cscope.files'
-find $1 -name "*.h" -o -name "*.cpp" -o -name "*.cc" > ${TARGET}
-mycwd=`pwd`
-cd $1
-ctags -R *
+find ./ -name "*.h" -o -name "*.cpp" -o -name "*.cc" > ${TARGET}
+ctags -R --fields=+niazS --extra=+q --c++-kinds=+px --c-kinds=+px --output-format=e-ctags *
+mv tags .tags
 cscope -bq -i ${TARGET}
-cd ${mycwd}
+rm ${TARGET}
