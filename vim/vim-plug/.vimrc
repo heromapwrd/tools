@@ -202,7 +202,7 @@ augroup END
 noremap <leader>m  :Leaderf mru<cr>
 noremap <leader>o  :Leaderf function<cr>
 noremap <leader>tg :Leaderf gtags<cr>
-noremap <leader>t  :Leaderf tag<cr>
+noremap <leader>tt :Leaderf tag<cr>
 noremap <leader>tb :Leaderf bufTag<cr>
 noremap <leader>w  :Leaderf window<cr>
 noremap <leader>s  :Leaderf self<cr>
@@ -219,6 +219,7 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
 let g:Lf_GtagsHigherThan6_6_2 = 0
+let g:Lf_ShowDevIcons = 0
 autocmd BufNewFile,BufRead X:/yourdir* let g:Lf_WildIgnore={'file':['*.vcproj', '*.vcxproj'],'dir':['*bazel*']}
 
 """""""""""""""""""""""""""""""""
