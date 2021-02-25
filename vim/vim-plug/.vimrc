@@ -403,7 +403,8 @@ set ignorecase
 " 设置编码
 set encoding=utf-8
 " 设置文件编码
-set fileencodings=utf-8
+"set fileencodings=utf-8
+set fileencodings=ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1
 " 设置终端编码
 set termencoding=utf-8
 """""""""""""""""""""""""""""""""
@@ -530,7 +531,6 @@ map 66 :b6<CR>          " 切换到编号6
 map 77 :b7<CR>          " 切换到编号7
 map 88 :b8<CR>          " 切换到编号8
 map 99 :b9<CR>          " 切换到编号9
-map 00 :b10<CR>         " 切换到编号10
 
 " Quickfix
 "" 使用cmake生成Makefile
