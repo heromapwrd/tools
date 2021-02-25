@@ -104,14 +104,6 @@ let g:gutentags_define_advanced_commands = 1
 """""""""""""""""""""""""""""""""
 " cscope
 """""""""""""""""""""""""""""""""
-nmap S :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap G :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap C :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap T :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap E :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap F :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap I :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap D :cs find d <C-R>=expand("<cword>")<CR><CR>
 set cscopequickfix=s-,c-,d-,i-,t-,e-,a-,g-,f-
 
 if has("cscope")
@@ -142,38 +134,6 @@ set cscopeprg='gtags-cscope' " 使用 gtags-cscope 代替 cscope
 let g:Lf_GtagsAutoGenerate = 1
 let g:Lf_Gtagslabel = 'native-pygments'
 "let g:Lf_Gtagsconf = '/usr/local/share/gtags/gtags.conf'
-noremap <leader>gr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>gd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>go :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
-noremap <leader>gn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-noremap <leader>gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
-
-"""""""""""""""""""""""""""""""""
-" gtags-scope
-"""""""""""""""""""""""""""""""""
-"nmap <silent> <leader>cs <Plug>GscopeFindSymbol
-"nmap <silent> <leader>cg <Plug>GscopeFindDefinition
-"nmap <silent> <leader>cc <Plug>GscopeFindCallingFunc
-"nmap <silent> <leader>ct <Plug>GscopeFindText
-"nmap <silent> <leader>ce <Plug>GscopeFindEgrep
-"nmap <silent> <leader>cf <Plug>GscopeFindFile
-"nmap <silent> <leader>ci <Plug>GscopeFindInclude
-"nmap <silent> <leader>cd <Plug>GscopeFindCalledFunc
-"nmap <silent> <leader>ca <Plug>GscopeFindAssign
-"nmap <silent> <leader>cz <Plug>GscopeFindCtag
-"nmap <silent> <leader>ck :GscopeKill<cr>
-
-"""""""""""""""""""""""""""""""""
-" => vim-preview
-"""""""""""""""""""""""""""""""""
-noremap <m-u> :PreviewScroll -1<cr>
-noremap <m-d> :PreviewScroll +1<cr>
-inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
-inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
-noremap <F4> :PreviewSignature!<cr>
-inoremap <F4> <c-\><c-o>:PreviewSignature!<cr>
-autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 
 """""""""""""""""""""""""""""""""
 " => AsyncRun
@@ -184,20 +144,6 @@ let g:asyncrun_open = 6
 let g:asyncrun_bell = 1
 " 设置项目标志
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
-"" 使用cmake生成Makefile
-"nnoremap <silent> <F4> :AsyncRun -cwd=<root> cmake . <cr>
-"" 单文件：运行
-"nnoremap <silent> <F5> :AsyncRun -raw -cwd=$(VIM_FILEDIR) -mode=4 "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
-"" 项目：测试
-"nnoremap <silent> <F6> :AsyncRun -cwd=<root> -raw make test <cr>
-"" 项目：编译
-"nnoremap <silent> <F7> :AsyncRun -cwd=<root> make <cr>
-"" 项目：运行
-"nnoremap <silent> <F8> :AsyncRun -cwd=<root> -raw -mode=4 make run <cr>
-"" 单文件：编译
-"nnoremap <silent> <F9> :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
-" 设置 F10 打开/关闭 Quickfix 窗口
-nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 
 """""""""""""""""""""""""""""""""
 " => ALE
@@ -240,8 +186,7 @@ hi! SpellRare gui=undercurl guisp=magenta
 """""""""""""""""""""""""""""""""
 " => 编辑辅助
 """""""""""""""""""""""""""""""""
-"set switchbuf=useopen
-set switchbuf=split
+set switchbuf=useopen
 
 """""""""""""""""""""""""""""""""
 " => YouCompleteCode
@@ -252,10 +197,7 @@ let g:ycm_server_log_level = 'info'
 let g:ycm_min_num_identifier_candidate_chars = 2
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_complete_in_strings=1
-let g:ycm_key_invoke_completion = '<c-n>'
 set completeopt=menu,menuone
-
-"noremap <c-z> <NOP>
 
 let g:ycm_semantic_triggers =  {
            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
@@ -270,15 +212,6 @@ augroup END
 """""""""""""""""""""""""""""""""
 " => LeaderF
 """""""""""""""""""""""""""""""""
-"let g:Lf_ShortcutF = '<C-j>'
-"let g:Lf_ShortcutB = 'b'
-noremap <leader>m  :Leaderf mru<cr>
-noremap <leader>o  :Leaderf function<cr>
-noremap <leader>tg :Leaderf gtags<cr>
-noremap <leader>tt :Leaderf tag<cr>
-noremap <leader>tb :Leaderf bufTag<cr>
-noremap <leader>w  :Leaderf window<cr>
-noremap <leader>s  :Leaderf self<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 
 let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
@@ -298,8 +231,6 @@ autocmd BufNewFile,BufRead X:/yourdir* let g:Lf_WildIgnore={'file':['*.vcproj', 
 """""""""""""""""""""""""""""""""
 " => NERDTree
 """""""""""""""""""""""""""""""""
-" F3 打开/关闭
-noremap <silent> <F3> :NERDTreeToggle<CR>
 " 当不带参数打开Vim时自动加载项目树
 set rtp+=~/.vim/plugged/nerdtree
 autocmd StdinReadPre * let s:std_in=1
@@ -341,7 +272,6 @@ let Tlist_Use_Right_Window=1          "在右侧窗口中显示taglist窗口
 let Tlist_GainFocus_On_ToggleOpen = 1 "Taglist窗口打开时，立刻切换为有焦点状态
 "let Tlist_Auto_Open=1                "打开vim时自动打开taglist
 "let Tlist_Process_File_Always=1      "taglist始终解析文件中的tag，不管taglist窗口有没有打开
-noremap <silent> <F4> :TlistToggle<cr>
 
 """""""""""""""""""""""""""""""""
 " tagbar
@@ -362,24 +292,10 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = '|'
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-map <c-Left> :bp<CR>    " 切换到上一个
-map <c-Right> :bn<CR>   " 切换到下一个
-"map <F2> :bd<CR>        " 关闭当前窗口
-map 11 :b1<CR>          " 切换到编号1
-map 22 :b2<CR>          " 切换到编号2
-map 33 :b3<CR>          " 切换到编号3
-map 44 :b4<CR>          " 切换到编号4
-map 55 :b5<CR>          " 切换到编号5
-map 66 :b6<CR>          " 切换到编号6
-map 77 :b7<CR>          " 切换到编号7
-map 88 :b8<CR>          " 切换到编号8
-map 99 :b9<CR>          " 切换到编号9
-map 00 :b10<CR>         " 切换到编号10
 
 """""""""""""""""""""""""""""""""
 " source explorer
 """""""""""""""""""""""""""""""""
-map <F9> :SrcExplToggle<CR>
 let g:SrcExpl_winHeight = 8
 let g:SrcExpl_refreshTime = 100
 let g:SrcExpl_gobackKey = "<SPACE>"
@@ -541,3 +457,100 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif                                                        
 endif
 set tags=./.tags;,.tags
+
+"""""""""""""""""""""""""""""""""
+" shortcut key
+"""""""""""""""""""""""""""""""""
+" Leaderf
+"let g:Lf_ShortcutF = '<C-j>'
+"let g:Lf_ShortcutB = 'b'
+noremap <leader>m  :Leaderf mru<cr>
+noremap <leader>o  :Leaderf function<cr>
+noremap <leader>tg :Leaderf gtags<cr>
+noremap <leader>tt :Leaderf tag<cr>
+noremap <leader>tb :Leaderf bufTag<cr>
+noremap <leader>w  :Leaderf window<cr>
+noremap <leader>s  :Leaderf self<cr>
+
+" cscope
+nmap S :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap G :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap C :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap T :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap E :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap F :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap I :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap D :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+" gtags 
+noremap <leader>gr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>gd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>go :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+noremap <leader>gn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <leader>gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+
+" gtags-scope
+"nmap <silent> <leader>cs <Plug>GscopeFindSymbol
+"nmap <silent> <leader>cg <Plug>GscopeFindDefinition
+"nmap <silent> <leader>cc <Plug>GscopeFindCallingFunc
+"nmap <silent> <leader>ct <Plug>GscopeFindText
+"nmap <silent> <leader>ce <Plug>GscopeFindEgrep
+"nmap <silent> <leader>cf <Plug>GscopeFindFile
+"nmap <silent> <leader>ci <Plug>GscopeFindInclude
+"nmap <silent> <leader>cd <Plug>GscopeFindCalledFunc
+"nmap <silent> <leader>ca <Plug>GscopeFindAssign
+"nmap <silent> <leader>cz <Plug>GscopeFindCtag
+"nmap <silent> <leader>ck :GscopeKill<cr>
+"
+" vim-preview
+noremap <m-u> :PreviewScroll -1<cr>
+noremap <m-d> :PreviewScroll +1<cr>
+inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
+inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
+noremap <F4> :PreviewSignature!<cr>
+inoremap <F4> <c-\><c-o>:PreviewSignature!<cr>
+autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+
+" YouCompleteCode
+let g:ycm_key_invoke_completion = '<c-n>'
+"noremap <c-z> <NOP>
+
+" airline
+map <c-Left> :bp<CR>    " 切换到上一个
+map <c-Right> :bn<CR>   " 切换到下一个
+map 11 :b1<CR>          " 切换到编号1
+map 22 :b2<CR>          " 切换到编号2
+map 33 :b3<CR>          " 切换到编号3
+map 44 :b4<CR>          " 切换到编号4
+map 55 :b5<CR>          " 切换到编号5
+map 66 :b6<CR>          " 切换到编号6
+map 77 :b7<CR>          " 切换到编号7
+map 88 :b8<CR>          " 切换到编号8
+map 99 :b9<CR>          " 切换到编号9
+map 00 :b10<CR>         " 切换到编号10
+
+" Quickfix
+"" 使用cmake生成Makefile
+"nnoremap <silent> <F4> :AsyncRun -cwd=<root> cmake . <cr>
+"" 单文件：运行
+"nnoremap <silent> <F5> :AsyncRun -raw -cwd=$(VIM_FILEDIR) -mode=4 "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+"" 项目：测试
+"nnoremap <silent> <F6> :AsyncRun -cwd=<root> -raw make test <cr>
+"" 项目：编译
+"nnoremap <silent> <F7> :AsyncRun -cwd=<root> make <cr>
+"" 项目：运行
+"nnoremap <silent> <F8> :AsyncRun -cwd=<root> -raw -mode=4 make run <cr>
+"" 单文件：编译
+"nnoremap <silent> <F9> :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+
+" airline
+"map <F2> :bd<CR>        " 关闭当前窗口
+" NERDTree
+noremap <silent> <F3> :NERDTreeToggle<CR>
+" taglist
+noremap <silent> <F4> :TlistToggle<cr>
+" source explorer
+map <F9> :SrcExplToggle<CR>
+" Quickfix
+nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
