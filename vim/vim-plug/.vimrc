@@ -2,9 +2,12 @@
 " => vim-plug
 """""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
+" interactive
+Plug 'skywind3000/vim-quickui'
 " tag自动生成插件
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
+Plug 'skywind3000/vim-preview'
 " 编译运行
 Plug 'skywind3000/asyncrun.vim'
 " 语法检查
@@ -29,7 +32,7 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 "Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'scrooloose/nerdtree' 
 " 这个插件可以显示文件的Git增删状态
-"Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 "
 " 符号列表
 "Plug 'vim-scripts/taglist.vim', {'on': 'TlistToggle'}
@@ -45,9 +48,9 @@ Plug 'justinmk/vim-dirvish'
 " 函数显示参数
 Plug 'Shougo/echodoc.vim'
 " 状态栏
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"Plug 'itchyny/lightline.vim'
 "Plug 'mengelbrecht/lightline-bufferline'
 " 函数跳转
 Plug 'wesleyche/SrcExpl'
@@ -84,10 +87,11 @@ endif
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--exclude=bazel-*/']
 let g:gutentags_ctags_extra_args += ['--exclude=tags']
 let g:gutentags_ctags_extra_args += ['--exclude=.tags']
 let g:gutentags_ctags_extra_args += ['--exclude=cscope.']
+let g:gutentags_ctags_extra_args += ['--exclude=*bazel-*']
+let g:gutentags_ctags_extra_args += ['--exclude=*bazel-*/']
 " 如果使用 universal ctags 需要增加下面一行，老的 Exuberant-ctags 不能加下一行
 let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 " 禁用 gutentags 自动加载 gtags 数据库的行为
@@ -96,6 +100,80 @@ let g:gutentags_auto_add_gtags_cscope = 0
 let g:gutentags_plus_switch = 1
 " allow geutentags open advanced command and option
 let g:gutentags_define_advanced_commands = 1
+
+"""""""""""""""""""""""""""""""""
+" cscope
+"""""""""""""""""""""""""""""""""
+nmap S :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap G :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap C :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap T :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap E :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap F :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap I :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap D :cs find d <C-R>=expand("<cword>")<CR><CR>
+set cscopequickfix=s-,c-,d-,i-,t-,e-,a-,g-,f-
+
+if has("cscope")
+    set csprg=/usr/bin/cscope
+    set csto=1
+    set cst
+    set csverb
+    set cspc=3
+    "add any database in current dir
+    if filereadable("cscope.out")
+        cs add cscope.out
+    "else search cscope.out elsewhere
+    else
+       let cscope_file=findfile("cscope.out", ".;")
+       let cscope_pre=matchstr(cscope_file, ".*/")
+       "echo cscope_file
+       if !empty(cscope_file) && filereadable(cscope_file)
+          exe "cs add" cscope_file cscope_pre
+       endif
+     endif
+endif
+
+"""""""""""""""""""""""""""""""""
+" gtags
+"""""""""""""""""""""""""""""""""
+set cscopetag " 使用 cscope 作为 tags 命令
+set cscopeprg='gtags-cscope' " 使用 gtags-cscope 代替 cscope
+let g:Lf_GtagsAutoGenerate = 1
+let g:Lf_Gtagslabel = 'native-pygments'
+"let g:Lf_Gtagsconf = '/usr/local/share/gtags/gtags.conf'
+noremap <leader>gr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>gd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>go :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+noremap <leader>gn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <leader>gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+
+"""""""""""""""""""""""""""""""""
+" gtags-scope
+"""""""""""""""""""""""""""""""""
+"nmap <silent> <leader>cs <Plug>GscopeFindSymbol
+"nmap <silent> <leader>cg <Plug>GscopeFindDefinition
+"nmap <silent> <leader>cc <Plug>GscopeFindCallingFunc
+"nmap <silent> <leader>ct <Plug>GscopeFindText
+"nmap <silent> <leader>ce <Plug>GscopeFindEgrep
+"nmap <silent> <leader>cf <Plug>GscopeFindFile
+"nmap <silent> <leader>ci <Plug>GscopeFindInclude
+"nmap <silent> <leader>cd <Plug>GscopeFindCalledFunc
+"nmap <silent> <leader>ca <Plug>GscopeFindAssign
+"nmap <silent> <leader>cz <Plug>GscopeFindCtag
+"nmap <silent> <leader>ck :GscopeKill<cr>
+
+"""""""""""""""""""""""""""""""""
+" => vim-preview
+"""""""""""""""""""""""""""""""""
+noremap <m-u> :PreviewScroll -1<cr>
+noremap <m-d> :PreviewScroll +1<cr>
+inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
+inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
+noremap <F4> :PreviewSignature!<cr>
+inoremap <F4> <c-\><c-o>:PreviewSignature!<cr>
+autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 
 """""""""""""""""""""""""""""""""
 " => AsyncRun
@@ -307,53 +385,6 @@ let g:SrcExpl_refreshTime = 100
 let g:SrcExpl_gobackKey = "<SPACE>"
 let g:SrcExpl_jumpKey = '<ENTER>'
 let g:SrcExpl_isUpdateTags = 0
-
-"""""""""""""""""""""""""""""""""
-" cscope
-"""""""""""""""""""""""""""""""""
-nmap S :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap G :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap C :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap T :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap E :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap F :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap I :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap D :cs find d <C-R>=expand("<cword>")<CR><CR>
-set cscopequickfix=s-,c-,d-,i-,t-,e-,a-,g-,f-
-
-if has("cscope")
-    set csprg=/usr/bin/cscope
-    set csto=1
-    set cst
-    set csverb
-    set cspc=3
-    "add any database in current dir
-    if filereadable("cscope.out")
-        cs add cscope.out
-    "else search cscope.out elsewhere
-    else
-       let cscope_file=findfile("cscope.out", ".;")
-       let cscope_pre=matchstr(cscope_file, ".*/")
-       "echo cscope_file
-       if !empty(cscope_file) && filereadable(cscope_file)
-          exe "cs add" cscope_file cscope_pre
-       endif
-     endif
-endif
-
-"""""""""""""""""""""""""""""""""
-" gtags
-"""""""""""""""""""""""""""""""""
-set cscopetag " 使用 cscope 作为 tags 命令
-set cscopeprg='gtags-cscope' " 使用 gtags-cscope 代替 cscope
-let g:Lf_GtagsAutoGenerate = 1
-let g:Lf_Gtagslabel = 'native-pygments'
-let g:Lf_Gtagsconf = '/usr/local/share/gtags/gtags.conf'
-noremap <leader>gr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>gd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>go :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
-noremap <leader>gn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-noremap <leader>gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 
 """""""""""""""""""""""""""""""""
 " vim启动优化

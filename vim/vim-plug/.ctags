@@ -1,0 +1,5 @@
+--exclude=tags
+--exclude=.tags
+--exclude=cscope.
+--exclude=*bazel-*
+--exclude=*bazel-*/
