@@ -32,7 +32,7 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 "Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'scrooloose/nerdtree' 
 " 这个插件可以显示文件的Git增删状态
-Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
 "
 " 符号列表
 "Plug 'vim-scripts/taglist.vim', {'on': 'TlistToggle'}
@@ -266,7 +266,7 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 let Tlist_Ctags_Cmd='ctags'
 let Tlist_Show_One_File=1             "不同时显示多个文件的tag，只显示当前文件的
 let Tlist_Sort_Type ='name'           "按名称排序 
-let Tlist_WinWidt =40                 "设置taglist的宽度             
+let Tlist_WinWidth =40                 "设置taglist的宽度             
 let Tlist_Exit_OnlyWindow=1           "如果taglist窗口是最后一个窗口，则退出vim
 let Tlist_Use_Right_Window=1          "在右侧窗口中显示taglist窗口
 let Tlist_GainFocus_On_ToggleOpen = 1 "Taglist窗口打开时，立刻切换为有焦点状态
