@@ -20,18 +20,20 @@ Plug 'sgur/vim-textobj-parameter'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-unimpaired'
 " 代码补全
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',  'for': ['c', 'cc', 'cpp'] }
-Plug 'Valloric/YouCompleteMe', {'on': []}
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',  'for': ['c', 'cc', 'cpp'] }
+"Plug 'Valloric/YouCompleteMe', {'on': []}
 "Plug 'AutoComplPop'
 " 搜索
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 " 项目树
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+"Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'scrooloose/nerdtree' 
 " 这个插件可以显示文件的Git增删状态
 "Plug 'Xuyuanp/nerdtree-git-plugin'
 "
 " 符号列表
-Plug 'vim-scripts/taglist.vim', {'on': 'TlistToggle'}
+"Plug 'vim-scripts/taglist.vim', {'on': 'TlistToggle'}
+Plug 'vim-scripts/taglist.vim'
 "Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 " 括号/引号匹配
 Plug 'Raimondi/delimitMate'
@@ -50,7 +52,7 @@ Plug 'itchyny/lightline.vim'
 " 函数跳转
 Plug 'wesleyche/SrcExpl'
 " vim启动优化
-Plug 'tweekmonster/startuptime.vim'
+"Plug 'tweekmonster/startuptime.vim'
 Plug 'dstein64/vim-startuptime'
 call plug#end()
 """""""""""""""""""""""""""""""""
@@ -154,7 +156,8 @@ hi! SpellRare gui=undercurl guisp=magenta
 """""""""""""""""""""""""""""""""
 " => 编辑辅助
 """""""""""""""""""""""""""""""""
-set switchbuf=useopen
+"set switchbuf=useopen
+set switchbuf=split
 
 """""""""""""""""""""""""""""""""
 " => YouCompleteCode
@@ -230,7 +233,7 @@ let NERDTreeAutoCenter=1
 " 是否显示隐藏文件
 let NERDTreeShowHidden=0
 " 设置宽度
-let NERDTreeWinSize=30
+let NERDTreeWinSize=40
 " 在终端启动vim时，共享NERDTree
 let g:nerdtree_tabs_open_on_console_startup=1
 " 显示书签列表
@@ -248,7 +251,7 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 let Tlist_Ctags_Cmd='ctags'
 let Tlist_Show_One_File=1             "不同时显示多个文件的tag，只显示当前文件的
 let Tlist_Sort_Type ='name'           "按名称排序 
-let Tlist_WinWidt =30                 "设置taglist的宽度             
+let Tlist_WinWidt =40                 "设置taglist的宽度             
 let Tlist_Exit_OnlyWindow=1           "如果taglist窗口是最后一个窗口，则退出vim
 let Tlist_Use_Right_Window=1          "在右侧窗口中显示taglist窗口
 let Tlist_GainFocus_On_ToggleOpen = 1 "Taglist窗口打开时，立刻切换为有焦点状态
@@ -310,7 +313,7 @@ nmap E :cs find e <C-R>=expand("<cword>")<CR><CR>
 nmap F :cs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap I :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap D :cs find d <C-R>=expand("<cword>")<CR><CR>
-set cscopequickfix=s-,c-,d-,i-,t-,e-
+set cscopequickfix=s-,c-,d-,i-,t-,e-,a-,g-,f-
 
 if has("cscope")
     set csprg=/usr/bin/cscope
@@ -345,6 +348,11 @@ noremap <leader>gd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand
 noremap <leader>go :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
 noremap <leader>gn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
 noremap <leader>gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+
+"""""""""""""""""""""""""""""""""
+" vim启动优化
+"""""""""""""""""""""""""""""""""
+set clipboard=exclude:.*
 
 """""""""""""""""""""""""""""""""
 " => 全局配置
