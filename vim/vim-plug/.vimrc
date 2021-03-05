@@ -19,24 +19,22 @@ Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-syntax'
 Plug 'kana/vim-textobj-function', { 'for':['c', 'cc', 'cpp', 'vim', 'java'] }
 Plug 'sgur/vim-textobj-parameter'
-" 编辑辅助
+" 语法高亮
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'tpope/vim-unimpaired'
+" ]快捷键映射
+"Plug 'tpope/vim-unimpaired'
 " 代码补全
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',  'for': ['c', 'cc', 'cpp'] }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',  'for': ['c', 'cc', 'cpp'] }
 "Plug 'Valloric/YouCompleteMe', {'on': []}
 "Plug 'AutoComplPop'
 " 搜索
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 " 项目树
-"Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-Plug 'scrooloose/nerdtree' 
-" 这个插件可以显示文件的Git增删状态
-"Plug 'Xuyuanp/nerdtree-git-plugin'
-"
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+"Plug 'scrooloose/nerdtree' 
 " 符号列表
-"Plug 'vim-scripts/taglist.vim', {'on': 'TlistToggle'}
-Plug 'vim-scripts/taglist.vim'
+Plug 'vim-scripts/taglist.vim', {'on': 'TlistToggle'}
+"Plug 'vim-scripts/taglist.vim'
 "Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 " 括号/引号匹配
 Plug 'Raimondi/delimitMate'
@@ -44,14 +42,12 @@ Plug 'Raimondi/delimitMate'
 Plug 'preservim/nerdcommenter'
 " 源文件与头文件切换
 Plug 'vim-scripts/a.vim'
-Plug 'justinmk/vim-dirvish'
+"Plug 'justinmk/vim-dirvish'
 " 函数显示参数
 Plug 'Shougo/echodoc.vim'
 " 状态栏
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'itchyny/lightline.vim'
-"Plug 'mengelbrecht/lightline-bufferline'
 " 函数跳转
 Plug 'wesleyche/SrcExpl'
 " vim启动优化
@@ -100,31 +96,6 @@ let g:gutentags_auto_add_gtags_cscope = 0
 let g:gutentags_plus_switch = 1
 " allow geutentags open advanced command and option
 let g:gutentags_define_advanced_commands = 1
-
-"""""""""""""""""""""""""""""""""
-" cscope
-"""""""""""""""""""""""""""""""""
-set cscopequickfix=s-,c-,d-,i-,t-,e-,a-,g-,f-
-
-if has("cscope")
-    set csprg=/usr/bin/cscope
-    set csto=1
-    set cst
-    set csverb
-    set cspc=3
-    "add any database in current dir
-    if filereadable("cscope.out")
-        cs add cscope.out
-    "else search cscope.out elsewhere
-    else
-       let cscope_file=findfile("cscope.out", ".;")
-       let cscope_pre=matchstr(cscope_file, ".*/")
-       "echo cscope_file
-       if !empty(cscope_file) && filereadable(cscope_file)
-          exe "cs add" cscope_file cscope_pre
-       endif
-     endif
-endif
 
 """""""""""""""""""""""""""""""""
 " gtags
@@ -292,6 +263,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = '|'
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#buffer_nr_show=1
 
 """""""""""""""""""""""""""""""""
 " source explorer
@@ -457,7 +429,7 @@ endfunc
 if has("autocmd")                                                          
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif                                                        
 endif
-set tags=./.tags;,.tags
+"set tags=./.tags;,.tags
 
 """""""""""""""""""""""""""""""""
 " shortcut key
@@ -472,16 +444,6 @@ noremap <leader>tt :Leaderf tag<cr>
 noremap <leader>tb :Leaderf bufTag<cr>
 noremap <leader>w  :Leaderf window<cr>
 noremap <leader>s  :Leaderf self<cr>
-
-" cscope
-nmap S :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap G :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap C :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap T :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap E :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap F :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap I :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap D :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 " gtags 
 noremap <leader>gr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
@@ -502,7 +464,7 @@ noremap <leader>gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 "nmap <silent> <leader>ca <Plug>GscopeFindAssign
 "nmap <silent> <leader>cz <Plug>GscopeFindCtag
 "nmap <silent> <leader>ck :GscopeKill<cr>
-"
+
 " vim-preview
 noremap <m-u> :PreviewScroll -1<cr>
 noremap <m-d> :PreviewScroll +1<cr>
@@ -518,6 +480,33 @@ autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 " YouCompleteCode
 let g:ycm_key_invoke_completion = '<c-n>'
 "noremap <c-z> <NOP>
+
+" nerdcommenter
+"nmap <silent> <leader>cs <Plug>GscopeFindSymbol
+"nmap <silent> <leader>cg <Plug>GscopeFindDefinition
+"nmap <silent> <leader>cc <Plug>GscopeFindCallingFunc
+"nmap <silent> <leader>ct <Plug>GscopeFindText
+"nmap <silent> <leader>ce <Plug>GscopeFindEgrep
+"nmap <silent> <leader>cf <Plug>GscopeFindFile
+"nmap <silent> <leader>ci <Plug>GscopeFindInclude
+"nmap <silent> <leader>cd <Plug>GscopeFindCalledFunc
+"nmap <silent> <leader>ca <Plug>GscopeFindAssign
+"nmap <silent> <leader>cz <Plug>GscopeFindCtag
+"nmap <silent> <leader>ck :GscopeKill<cr>
+
+nmap <leader><leader>cc <Plug>NERDCommenterComment
+nmap <leader><leader>cn <Plug>NERDCommenterNested
+nmap <leader><leader>c<space> <Plug>NERDCommenterToggle
+nmap <leader><leader>cm <Plug>NERDCommenterMinimal
+nmap <leader><leader>ci <Plug>NERDCommenterInvert
+nmap <leader><leader>cs <Plug>NERDCommenterSexy
+nmap <leader><leader>cy <Plug>NERDCommenterYank
+nmap <leader><leader>c$ <Plug>NERDCommenterToEOL
+nmap <leader><leader>cA <Plug>NERDCommenterAppend
+nmap <leader><leader>ca <Plug>NERDCommenterAltDelims
+nmap <leader><leader>cl <Plug>NERDCommenterAlignLeft
+nmap <leader><leader>cb <Plug>NERDCommenterAlignBoth
+nmap <leader><leader>cu <Plug>NERDCommenterUncomment
 
 " airline
 map <c-Left> :bp<CR>    " 切换到上一个
@@ -555,4 +544,4 @@ noremap <silent> <F4> :TlistToggle<cr>
 " source explorer
 map <F9> :SrcExplToggle<CR>
 " Quickfix
-nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
+nnoremap <F10> :call asyncrun#quickfix_toggle(10)<cr>
